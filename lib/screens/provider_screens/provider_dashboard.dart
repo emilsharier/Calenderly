@@ -1,3 +1,4 @@
+import 'package:calenderly/screens/provider_screens/schedules_today.dart';
 import 'package:flutter/material.dart';
 
 class ProviderDashboard extends StatefulWidget {
@@ -47,7 +48,7 @@ class _ProviderDashboardState extends State<ProviderDashboard> {
     Widget _child;
     switch (index) {
       case 0:
-        _child = Text('0');
+        _child = SchedulesToday();
         break;
       case 1:
         _child = Text('1');

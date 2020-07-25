@@ -5,6 +5,7 @@ import 'package:calenderly/global/api.dart';
 import 'package:calenderly/global/keys.dart';
 import 'package:calenderly/models/client_schedule_model.dart';
 import 'package:calenderly/models/provider.dart';
+import 'package:calenderly/models/provider_schedule_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
@@ -43,7 +44,7 @@ class ApiInterface with ChangeNotifier {
         await client.postUrl(Uri.parse(API.viewSchedulesUrl));
     request.headers.set('content-type', 'application/json');
     request.headers.set(Keys.token, _token);
-    print(request.headers);
+    // print(request.headers);
 
     String body = '{"user_id" : "$_userId"}';
     request.add(utf8.encode(body));
@@ -80,6 +81,39 @@ class ApiInterface with ChangeNotifier {
     var data = json.decode(temp);
     for (final node in data['data']) {
       result.add(ProviderModel.fromJson(node));
+    }
+    // print(result);
+    return result;
+  }
+
+  Future<List<ProviderScheduleModel>> fetchLiveSchedules() async {
+    await getTokenFromStorage();
+    await getUserIdFromStorage();
+    HttpClient client = HttpClient();
+
+    DateTime date = DateTime.now();
+    String formattedDate = '${date.year}-${date.month}-${date.day}';
+
+    client.badCertificateCallback =
+        ((X509Certificate cert, String host, int port) => true);
+    HttpClientRequest request =
+        await client.postUrl(Uri.parse(API.fetchLiveSchedules));
+    request.headers.set('content-type', 'application/json');
+    request.headers.set(Keys.token, _token);
+
+    String body = '{"user_id" : "$_userId", "date" : "$formattedDate"}';
+
+    print(body);
+
+    request.add(utf8.encode(body));
+    HttpClientResponse response = await request.close();
+
+    List<ProviderScheduleModel> result = [];
+    Stream<String> val = response.transform(utf8.decoder);
+    String temp = await val.join('');
+    var data = json.decode(temp);
+    for (final node in data['data']) {
+      result.add(ProviderScheduleModel.fromJson(node));
     }
     // print(result);
     return result;

@@ -3,4 +3,5 @@ class API {
   static const String signin_url = _base_url + 'signin';
   static const String viewSchedulesUrl = _base_url + 'viewschedules';
   static const String fetchAllProviders = _base_url + 'fetchallproviders';
+  static const String fetchLiveSchedules = _base_url + 'fetchliveschedules';
 }

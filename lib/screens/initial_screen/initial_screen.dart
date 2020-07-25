@@ -9,6 +9,7 @@ class InitialScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<AppState>(context);
+    // print('run');
     return Scaffold(
       appBar: AppBar(
         title: Text('Welcome'),

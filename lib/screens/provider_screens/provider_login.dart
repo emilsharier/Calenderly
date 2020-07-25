@@ -28,13 +28,17 @@ class ProviderLogin extends StatelessWidget {
                   controller: _loginPasswordController,
                 ),
                 RaisedButton(
-                    child: Text('Login'),
-                    onPressed: () {
-                      provider
-                          .loginAsProvider(_loginEmailController.text,
-                              _loginPasswordController.text)
-                          .then((value) => Navigator.pop(context));
-                    }),
+                  child: Text('Login'),
+                  onPressed: () {
+                    provider
+                        .loginAsProvider(_loginEmailController.text,
+                            _loginPasswordController.text)
+                        .then((value) {
+                      // print('popping');
+                      Navigator.pop(context);
+                    });
+                  },
+                ),
                 RaisedButton(
                   child: Text('Register'),
                   onPressed: () => _controller.animateToPage(

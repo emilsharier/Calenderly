@@ -134,7 +134,7 @@ class AppState with ChangeNotifier {
 
     Stream<String> val = response.transform(utf8.decoder);
     String temp = await val.join('');
-    print(temp);
+    // print(temp);
     Map<String, dynamic> result = json.decode(temp);
     if (response.statusCode == 403) {
       setLoginState(LoginState.NotLoggedIn);
