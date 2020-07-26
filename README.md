@@ -41,7 +41,7 @@ To build a release APK, use the following command
 
     flutter build --split-per-abi
 
-## Things/Features left out
+## Future enhancements
 
 Features that I had initally planned on implementing but couldn't finish because of the time constraint.
 
