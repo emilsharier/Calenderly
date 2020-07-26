@@ -108,14 +108,16 @@ class AppState with ChangeNotifier {
 
     Stream<String> val = response.transform(utf8.decoder);
     String temp = await val.join('');
-    Map<String, dynamic> result = json.decode(temp);
-    if (response.statusCode == 403) {
-      setLoginState(LoginState.NotLoggedIn);
-    } else {
-      await setToken(result['accessToken']);
-      await setUserIdToStorage(result['id'].toString());
-      setLoginState(LoginState.LoggedInAsClient);
-      setLoginStateToPref(LoginState.LoggedInAsClient);
+    if (temp != 'Not found') {
+      Map<String, dynamic> result = json.decode(temp);
+      if (response.statusCode == 403 || response.statusCode == 404) {
+        setLoginState(LoginState.NotLoggedIn);
+      } else {
+        await setToken(result['accessToken']);
+        await setUserIdToStorage(result['id'].toString());
+        setLoginState(LoginState.LoggedInAsClient);
+        setLoginStateToPref(LoginState.LoggedInAsClient);
+      }
     }
   }
 
@@ -135,14 +137,16 @@ class AppState with ChangeNotifier {
     Stream<String> val = response.transform(utf8.decoder);
     String temp = await val.join('');
     // print(temp);
-    Map<String, dynamic> result = json.decode(temp);
-    if (response.statusCode == 403) {
-      setLoginState(LoginState.NotLoggedIn);
-    } else {
-      await setToken(result['accessToken']);
-      await setUserIdToStorage(result['id'].toString());
-      setLoginState(LoginState.LoggedInAsProvider);
-      setLoginStateToPref(LoginState.LoggedInAsProvider);
+    if (temp != 'Not found') {
+      Map<String, dynamic> result = json.decode(temp);
+      if (response.statusCode == 403 || response.statusCode == 404) {
+        setLoginState(LoginState.NotLoggedIn);
+      } else {
+        await setToken(result['accessToken']);
+        await setUserIdToStorage(result['id'].toString());
+        setLoginState(LoginState.LoggedInAsProvider);
+        setLoginStateToPref(LoginState.LoggedInAsProvider);
+      }
     }
   }
 

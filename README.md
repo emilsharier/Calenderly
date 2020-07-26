@@ -6,6 +6,10 @@ It can be deployed and can be run in an Android device as well as an iPhone.
 
 The client will receive a JWT token upon login. The token will be stored in the memory in a secure manner and will be attached to all the requests that the app would make with the server. The JWT token would be responsible for the client's authenticity in the request headers.
 
+## APK
+
+You can find the release APKs in the release/ folder
+
 ### About Flutter
 
 A cross platform UI framework kit from Google that encourages fast development and rapid testing.
