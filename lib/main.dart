@@ -19,7 +19,6 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider.value(value: ApiInterface()),
       ],
       child: MaterialApp(
-        // initialRoute: Router.initialScreen,
         home: InitialScreen(),
         onGenerateRoute: Router.generateRoute,
       ),

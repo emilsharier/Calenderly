@@ -85,7 +85,7 @@ class AppState with ChangeNotifier {
   }
 
   Future<void> setUserIdToStorage(String id) async {
-    print(id);
+    // print(id);
     await _secureStorage.write(key: Keys.userId, value: id);
   }
 
@@ -152,8 +152,8 @@ class AppState with ChangeNotifier {
     client.badCertificateCallback =
         ((X509Certificate cert, String host, int port) => true);
     String body =
-        '{"email" : "${user.email}", "password" : "${user.password}", "name" : "${user.name}", "type" : "0", "phone" : "${user.phone}"}';
-    HttpClientRequest request = await client.postUrl(Uri.parse(API.signin_url));
+        '{"email" : "${user.email}", "password" : "${user.password}", "name" : "${user.name}", "type" : "${user.type}", "phone" : "${user.phone}"}';
+    HttpClientRequest request = await client.postUrl(Uri.parse(API.signup_url));
     request.headers.set('content-type', 'application/json');
     request.add(utf8.encode(body));
 
@@ -165,10 +165,11 @@ class AppState with ChangeNotifier {
     if (response.statusCode == 403) {
       // Not registered
       print('Registration unsuccessfull');
+      return false;
     } else {
-      await setToken(result['accessToken']);
-      await setUserIdToStorage(result['id']);
-      await getUserIdFromStorage();
+      // await setToken(result['accessToken']);
+      // await setUserIdToStorage(result['id']);
+      return true;
     }
   }
 
@@ -178,8 +179,8 @@ class AppState with ChangeNotifier {
     client.badCertificateCallback =
         ((X509Certificate cert, String host, int port) => true);
     String body =
-        '{"email" : "${user.email}", "password" : "${user.password}", "name" : "${user.name}", "type" : "0", "phone" : "${user.phone}"}';
-    HttpClientRequest request = await client.postUrl(Uri.parse(API.signin_url));
+        '{"email" : "${user.email}", "password" : "${user.password}", "name" : "${user.name}", "type" : "${user.type}", "phone" : "${user.phone}"}';
+    HttpClientRequest request = await client.postUrl(Uri.parse(API.signup_url));
     request.headers.set('content-type', 'application/json');
     request.add(utf8.encode(body));
 
@@ -191,10 +192,11 @@ class AppState with ChangeNotifier {
     if (response.statusCode == 403) {
       // Not registered
       print('Registration unsuccessfull');
+      return false;
     } else {
-      await setToken(result['accessToken']);
-      await setUserIdToStorage(result['id']);
-      await getUserIdFromStorage();
+      // await setToken(result['accessToken']);
+      // await setUserIdToStorage(result['id']);
+      return true;
     }
   }
 }

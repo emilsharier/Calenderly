@@ -1,6 +1,8 @@
 class User {
   String email, password, type, name, phone;
 
+  User({this.email, this.password, this.type, this.name, this.phone});
+
   toJson() => {
         'email': this.email,
         'type': this.type,
